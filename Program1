@@ -1,0 +1,46 @@
+interface IWork
+{
+    void Work();
+}
+
+interface ICharger
+{
+    void Charger();
+}
+
+class Robot : IWork, ICharger
+{
+    public string Name { get; private set; }
+    private int energy;
+    public int Energy { 
+    get => energy; 
+    private set => energy = Math.Clamp(value, 0, 100); }
+
+    public Robot(string name,int energy)
+    {
+        Name = name;
+        Energy = energy; 
+    }
+    public void Work()
+    {
+        Energy -= 20;
+        Console.WriteLine($"{Name} работает, энергия: {Energy}");
+    }
+    public void Charger()
+    {
+        Energy += 50;
+        Console.WriteLine($"{Name} заряжается, энергия: {Energy}");
+    }
+}
+
+internal class Program
+{
+    public static void Main(string[] args)
+    {
+      Robot robot = new Robot("Бамблби", 100);
+        robot.Work();
+        robot.Work();
+        robot.Charger();
+        robot.Work();
+    }
+}
