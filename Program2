@@ -1,0 +1,71 @@
+interface ISwitch
+{
+    void TurnOff();
+    void TurnOn();
+}
+
+interface ILevel
+{
+    void SetLevel(int level);
+}
+
+class Lamp : ISwitch, ILevel
+{
+    private int level;
+    public int Level 
+    {  
+        get => level;
+        set => level = Math.Clamp(value,0,100);
+    }
+    public Lamp()
+    {
+        Level = 0;
+    }
+
+    public void TurnOff()
+    {
+        Level = 0;
+        Console.WriteLine($"Лампа выключена, энергия: {Level}");
+    }
+    public void TurnOn()
+    {
+        Level = 100;
+        Console.WriteLine($"Лампа включена, энергия: {Level}");
+    }
+    public void SetLevel(int level)
+    {
+        Level = level;
+        Console.WriteLine($"Уровень лампы установлен: {Level}");
+       
+    }
+}
+
+class Fan : ISwitch
+{
+    public void TurnOff()
+    {
+
+        Console.WriteLine($"Вентилятор выключен");
+    }
+    public void TurnOn()
+    {
+        Console.WriteLine($"Вентилятор включен");
+    }
+
+}
+
+internal class Program
+{
+    public static void Main(string[] args)
+    {
+      Lamp lamp = new Lamp();
+      lamp.TurnOff();
+      lamp.TurnOn();
+      lamp.SetLevel(30);
+      
+      Fan fan = new Fan();
+      fan.TurnOff();
+      fan.TurnOn();
+
+    }
+}
